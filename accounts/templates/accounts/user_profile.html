@@ -1,0 +1,20 @@
+{% extends "eshop/base.html" %}
+
+{% block content %}
+    <h1>Your Profile</h1>
+    <div>
+        <h2>{{ user.username }}</h2>
+        <h3>{{ user.email }}</h3>
+        {% comment %} <a href="{% url "profile_app:request_password_reset" %}">Reset Password</a> {% endcomment %}
+    </div>
+    
+    <div class="list-container">
+        <div>
+
+        </div>
+        <div>
+          
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <a href={% url 'accounts:sign_up' %}>Sign up</a>
+    
+        <form action="{% url 'accounts:login' %}" method="POST">
+            {% csrf_token %}
+            <input type="text" name="user" placeholder="username">
+            <input type="password" name="password" placeholder="password">
+            <button>Login</button>
+        </fomr>
+   
+    {% if error %}
+        {{ error }}
+    {% endif %}
+    <br />
+    {% comment %} <a href="{% url 'profile_app:request_password_reset' %}">Request Password Reset</a>  {% endcomment %}
+</body>
+</html>

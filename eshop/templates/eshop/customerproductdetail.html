@@ -5,11 +5,14 @@
     <h1>Hello world</h1>
     <main>
          <div>
-            <h2 class="title">Title</h2>
-            <p class="description">description</p>
-            <h4 class="price">price</h4>
+            <h2 class="title"></h2>
+            <p class="description"></p>
+            <h4 class="price"></h4>
+            <input type="hidden" name="product_id">
+            <input type="hidden" name="shopping_cart_id" value={{ shoppingCartID }}>
+            
         </div>
-        <button type="button">BUY</button>
+        <button class="buy-product-button" type="button">BUY</button>
     </main>
 
 {% endblock %}

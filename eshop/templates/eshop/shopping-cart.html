@@ -1,0 +1,30 @@
+{% extends "eshop/base.html" %}
+{% load static %}
+{% block content %}
+
+    <h1>Hello world</h1>
+    <main>
+        <input type="hidden" name="shopping_cart_id" value={{ shoppingCartID }}>
+        <div class="order-products-list">
+           
+        
+        </div>
+        <button class="check-out-button" type="button">Check Out</button>
+    </main>
+    <template class="order-item-template">
+        <a class="product-detail-link">
+            <div>
+                <h2 class="title">Title</h2>
+                <p class="description">description</p>
+                <h4 class="price">price</h4>
+            </div>
+        </a>  
+    </template>
+{% endblock %}
+
+
+{% block scripts %}
+<!-- block.super will get the content of the block from the parent template -->
+    {{ block.super }}
+    <script src="{% static 'eshop/js/shoppingcart.js' %}"></script>
+{% endblock %}

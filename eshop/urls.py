@@ -6,6 +6,7 @@ app_name = 'eshop'
 
 urlpatterns = [
    path('', views.index, name='index'),
+   path('product-detail', views.customerProductDetail, name="customer_product_detail"),
    path('add_product/', views.add_product, name='add_product'),
    path('update_product/', views.update_product, name='update_product'),
    path('delete_product/', views.delete_product, name='delete_product'),

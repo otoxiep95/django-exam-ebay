@@ -1,27 +1,10 @@
-function getCookie(name) {
-  var cookieValue = null;
-  if (document.cookie && document.cookie !== "") {
-    var cookies = document.cookie.split(";");
-    for (var i = 0; i < cookies.length; i++) {
-      var cookie = cookies[i].trim();
-      // Does this cookie string begin with the name we want?
-      if (cookie.substring(0, name.length + 1) === name + "=") {
-        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-        break;
-      }
-    }
-  }
-  return cookieValue;
-}
-var csrftoken = getCookie("csrftoken");
-
-console.log(csrftoken);
+const productListContainerElm = document.querySelector(".product-list");
 
 function init() {
-  getAllProducts();
+  getProductById();
 }
 
-function getAllProducts() {
+function getProductById() {
   fetch("http://localhost:8000/eshop/api/v1/", {
     credentials: "same-origin",
     headers: {
@@ -35,10 +18,25 @@ function getAllProducts() {
     })
     .then(function (data) {
       console.log("Data is ok", data);
+      showAllProducts(data);
     })
     .catch(function (ex) {
       console.log("parsing failed", ex);
     });
+}
+
+function showAllProducts(data) {
+  data.forEach((item) => {
+    let clone = document
+      .querySelector(".eshop-item-template")
+      .content.cloneNode(true);
+    let a = clone.querySelector(".product-detail-link");
+    a.href = "http://localhost:8000/eshop/product-detail?id=" + item.id;
+    clone.querySelector(".title").textContent = item.title;
+    clone.querySelector(".description").textContent = item.description;
+    clone.querySelector(".price").textContent = item.price;
+    productListContainerElm.appendChild(clone);
+  });
 }
 
 init();

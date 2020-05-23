@@ -28,7 +28,27 @@ def logout(request):
     pass
 
 def sign_up(request):
-    pass
+    context = {}
+    if request.method == "POST":
+        password = request.POST['password']
+        confirm_password = request.POST['confirm_password']
+        user_name = request.POST['user']
+        email = request.POST['email']
+        phone = request.POST['phone']
+        if password == confirm_password:
+            if User.objects.create_user(user_name, email, password):
+                user = get_object_or_404(User, username=user_name)
+               
+                return HttpResponseRedirect(reverse('accounts:login'))
+            else:
+                context = {
+                    'error': 'could not create user account'
+                }
+        else:
+            context = {
+                'error': 'passwords do not match'
+            }
+    return render(request, 'accounts/sign_up.html', context)
 
 def user_profile(request):
     pass

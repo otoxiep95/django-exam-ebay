@@ -7,4 +7,4 @@ class Profile(models.Model):
     phone = models.CharField(max_length=25, blank=True)
 
     def __str__(self):
-      return self.user
+      return self.user.email

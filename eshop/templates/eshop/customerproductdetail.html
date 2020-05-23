@@ -1,0 +1,23 @@
+{% extends "eshop/base.html" %}
+{% load static %}
+{% block content %}
+
+    <h1>Hello world</h1>
+    <main>
+         <div>
+            <h2 class="title">Title</h2>
+            <p class="description">description</p>
+            <h4 class="price">price</h4>
+        </div>
+        <button type="button">BUY</button>
+    </main>
+
+{% endblock %}
+
+
+{% block scripts %}
+<!-- block.super will get the content of the block from the parent template -->
+    {{ block.super }}
+    <script src="{% static 'eshop/js/productdetail.js' %}"></script>
+    
+{% endblock %}

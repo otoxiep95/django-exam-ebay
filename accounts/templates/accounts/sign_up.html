@@ -10,6 +10,10 @@
     
       <form action="{% url 'accounts:sign_up' %}" method="POST">
         {% csrf_token %}
+        <select name="group" id="groups">
+          <option value="customer">Customer</option>
+          <option value="seller">Seller</option>
+        </select>
         <input type="text" name="user" placeholder="username" />
         <input type="email" name="email" placeholder="email" />
         <input type="text" name="phone" placeholder="phone" />

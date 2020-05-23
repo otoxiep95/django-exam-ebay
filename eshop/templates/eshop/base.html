@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +15,8 @@
         {% endblock %}
         {% block footer %}
         {% endblock %}
-    <script src="{% static 'eshop/js/index.js' %}"></script>
+        {% block scripts %}
+        <script src="{% static 'eshop/js/cookies.js' %}"></script>
+        {% endblock %}
 </body>
 </html>

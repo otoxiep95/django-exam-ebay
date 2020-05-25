@@ -31,6 +31,18 @@ def customerShoppingCart(request):
     return render(request, 'eshop/shopping-cart.html', context)
 
 
+def checkout(request):
+    user = request.user
+    shopping_cart = get_object_or_404(
+        ShoppingCart, buyer=user, completed=False)
+
+    context = {'shoppingCartID': shopping_cart.id}
+
+    return render(request, 'eshop/checkout.html', context)
+
+
+#### Seller views ####
+
 def add_product(request):
     context = {}
     return render(request, 'eshop/create-product.html', context)

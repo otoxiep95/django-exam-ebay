@@ -1,9 +1,9 @@
 from rest_framework import generics, permissions
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from .models import Product, OrderProduct
-from .serializers import ProductSerializer, OrderProductSerializer
-from .permissions import IsOwnerOrNoAccess
+from .models import Product, OrderProduct, ShoppingCart
+from .serializers import ProductSerializer, OrderProductSerializer, ShoppingCartSerializer
+from .permissions import IsOwnerOrNoAccess, IsCustomerOwnerOrNoAccess
 
 
 class ProductList(generics.ListCreateAPIView):
@@ -30,5 +30,16 @@ class OrderProductListInCart(generics.ListCreateAPIView):
         shopping_cart_id = self.request.query_params.get(
             'shopping_cart_id', None)
         if shopping_cart_id is not None:
-            queryset = queryset.filter(orderproduct=shopping_cart_id)
+            queryset = queryset.filter(shopping_cart=shopping_cart_id)
         return queryset
+
+
+class ShoppingCartList(generics.ListCreateAPIView):
+    serializer_class = ShoppingCartSerializer
+    queryset = ShoppingCart.objects.all()
+
+
+class ShoppingCartDetail(generics.UpdateAPIView):
+    permission_classes = [IsCustomerOwnerOrNoAccess]
+    serializer_class = ShoppingCartSerializer
+    queryset = ShoppingCart.objects.all()

@@ -1,0 +1,65 @@
+{% extends "eshop/base.html" %}
+{% load static %}
+{% block content %}
+
+    <h1>Hello world</h1>
+    <input type="hidden" name="shopping_cart_id" value="{{ shoppingCartID }}">
+    <input type="hidden" name="user_id" value="{{ user.id }}">
+    <main>
+        {% comment %} <div>
+            <ul class="checkout-nav">
+                <li class="nav-order-confirmation">Order Confirmation</li>      
+                <li class="nav-adress">Shipping Adress</li>      
+                <li class="nav-payment">Payment</li>      
+            </ul> 
+        </div> {% endcomment %}
+        <div class="checkout-confirmation">
+            <h2>Order Confirmation</h2>
+            <div class="checkout-products-list">
+
+            </div>
+            
+            <button class="to-adress-button" type="button">Next</button>
+        </div>
+        <div class="checkout-adress">
+            <h2>Shipping Adress</h2>
+            <form>
+                <input type="text" name="adress1" placeholder="Street"> 
+                <input type="text" name="adress2" placeholder="Number and Floor"> 
+                <input type="text" name="zipcode" placeholder="Zipcode">
+                <input type="text" name="city" placeholder="City"> 
+                <input type="text" name="country" placeholder="Country"> 
+            </form>
+            <button class="to-confirmation-button" type="button">Back</button>
+            <button class="to-payment-button" type="button">Next</button>
+        </div>
+        <div class="checkout-payment">
+            <h2>Payment</h2>
+            <form>
+                <input type="text" name="card-number" placeholder="Card Number"> 
+                <input type="month" name="expire-date">
+                <input type="text" name="csc" placeholder="CSC"> 
+                <input type="text" name="name" placeholder="Name on card">
+            </form>
+            <button class="to-adress-button" type="button">Back</button>
+            <button class="finalize-shop-button" type="button">Finalize</button>
+        </div>
+        
+    </main>
+    <template class="order-item-template">
+        
+            <div>
+                <h2 class="title">Title</h2>
+                <p class="description">description</p>
+                <h4 class="price">price</h4>
+            </div>
+          
+    </template>
+{% endblock %}
+
+
+{% block scripts %}
+<!-- block.super will get the content of the block from the parent template -->
+    {{ block.super }}
+    <script src="{% static 'eshop/js/checkout.js' %}"></script>
+{% endblock %}

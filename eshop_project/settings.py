@@ -37,26 +37,30 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    #Third party
+
+    # Third party
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
-    #Local apps
+    'js_urls',
+    # Local apps
     'eshop',
     'accounts',
 
 ]
 
+JS_URLS = (
+    'eshop:shopping_cart',
+)
 
 REST_FRAMEWORK = {
-   'DEFAULT_PERMISSION_CLASSES': [
-      'eshop.permissions.IsOwnerOrReadOnly',
-      'rest_framework.permissions.IsAuthenticated',
-   ],
-   'DEFAULT_AUTHENTICATION_CLASSES': [
-      'rest_framework.authentication.SessionAuthentication',
-   ]
+    'DEFAULT_PERMISSION_CLASSES': [
+        'eshop.permissions.IsOwnerOrReadOnly',
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ]
 }
 
 

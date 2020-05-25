@@ -1,22 +1,32 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'eshop/css/eshop.css' %}" media="screen"/> 
-    <title>Eshop</title>
-</head>
-<body>
-
-    <p>Welcome {{ user }} -  <a href="{% url 'eshop:index' %}">Home Page</a></p> 
-        {% block content %}
-        {% endblock %}
-        {% block footer %}
-        {% endblock %}
-        {% block scripts %}
-        <script src="{% static 'eshop/js/cookies.js' %}"></script>
-        {% endblock %}
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'eshop/css/eshop.css' %}" media="screen"/> 
+        <title>Eshop</title>
+    </head>
+    <body>
+    
+        <nav>
+        {% if user %}
+            <a href="{% url 'eshop:index' %}"><li>Home Page</li></a>
+            <a><li>My Profile</li></a>
+            <a href="{% url 'eshop:shopping_cart' %}"><li>My Basket</li></a>
+            <a href="{% url 'accounts:logout' %}"><li>Logout</li></a>
+        {% else %}    
+            <a href="{% url 'accounts:login' %}"><li>Login</li></a>
+            <a href="{% url 'accounts:sign_up' %}"><li>Register</li></a>
+        {% endif %}
+        </nav> 
+            {% block content %}
+            {% endblock %}
+            {% block footer %}
+            {% endblock %}
+            {% block scripts %}
+            <script src="{% static 'eshop/js/cookies.js' %}"></script>
+            {% endblock %}
+    </body>
 </html>

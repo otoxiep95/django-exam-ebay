@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-    <h1>Hello world</h1>
+   
     <input type="hidden" name="shopping_cart_id" value="{{ shoppingCartID }}">
     <input type="hidden" name="user_id" value="{{ user.id }}">
     <main>
@@ -61,5 +61,6 @@
 {% block scripts %}
 <!-- block.super will get the content of the block from the parent template -->
     {{ block.super }}
+
     <script src="{% static 'eshop/js/checkout.js' %}"></script>
 {% endblock %}

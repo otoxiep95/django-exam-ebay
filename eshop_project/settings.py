@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from . import emailconfig
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,16 +43,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
-    'js_urls',
+    'django_rq',
     # Local apps
     'eshop',
     'accounts',
 
 ]
 
-JS_URLS = (
-    'eshop:shopping_cart',
-)
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -63,8 +61,38 @@ REST_FRAMEWORK = {
     ]
 }
 
+IS_IPADRESS_ALLOWED_MIDDLEWARE = {
+    'ALLOWED_IP_ADDRESSES': [
+        '127.0.0.1',
+    ]
+}
+
+RQ_QUEUES = {
+    'default': {
+        'HOST': 'localhost',
+        'PORT': '6379',
+        'DB': 0,
+        'DEFAULT_TIMEOUT': 360,
+    }
+}
+
+
+# EMAIL SETTINGS
+# GET ERROR OF USERNAME AND PASSWORD DONT MATCH
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = True ### <--- DON'T USE THIS - USE EMAIL_USE_TLS
+EMAIL_HOST = 'smtp-relay.sendinblue.com'
+EMAIL_PORT = 587
+# get from email config
+EMAIL_HOST_USER = "email@gmail.com"
+
+EMAIL_HOST_PASSWORD = "super secured password from sendinblue"
+
 
 MIDDLEWARE = [
+    # 'eshop.middleware.IsIPAdressAllowedAllowed',
+    'eshop.middleware.IsSellerMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -73,6 +101,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+SELLER_URLS = (
+    r'^eshop/add_product/',
+    r'^eshop/delete_product/',
+)
 
 ROOT_URLCONF = 'eshop_project.urls'
 
@@ -143,3 +177,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

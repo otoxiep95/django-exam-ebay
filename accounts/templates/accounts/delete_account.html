@@ -8,7 +8,7 @@
 <body>
     <h1>Delete Account</h1>
     <hr />
-        <form action="{% url 'profile_app:delete_account' %}" method="POST">
+        <form action="{% url 'accounts:delete_account' %}" method="POST">
             {% csrf_token %}
            <input type="password" name="password" placeholder="password" />
            <br/>

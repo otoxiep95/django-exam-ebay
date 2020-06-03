@@ -1,20 +1,73 @@
 {% extends "eshop/base.html" %}
-
+{% load static %}
 {% block content %}
     <h1>Your Profile</h1>
     <div>
         <h2>{{ user.username }}</h2>
         <h3>{{ user.email }}</h3>
+        <input type="hidden" name="user_id" value="{{ user.id }}">
+        <input type="hidden" name="user_group" value="{{ group }}">
         {% comment %} <a href="{% url "profile_app:request_password_reset" %}">Reset Password</a> {% endcomment %}
+        <a href="{% url "accounts:delete_account" %}">Delete my account</a>
     </div>
+    {% comment %} IF USER IS SELLER {% endcomment %}
+    {% if group == "seller" %}
+    <div>
+        <a href="{% url 'eshop:add_product' %}"><p>Create new Product</p></a>
+        {% comment %} <h2>My Sold Products</h2>
+            <div class="sold-list-container">
+
+            </div> {% endcomment %}
+        <h2>My Products</h2>
+            <div class="owned-product-list-container">
+
+            </div>
+    </div>
+    {% endif %}
+    {% comment %} IF USER IS BUYER OR SELLER {% endcomment %}
+    <div>
+        <h2>My Orders</h2>
+        <div class="order-list">
+
+        </div>
+    </div>
+
+    <template class="order-template">
+        <div>
+            <p class="order-date"></p>
+            <div class="products"></div>
+        </div>
+    </template>
+    <template class="order-item-template">
+        <a class="product-detail-link">
+            <div>
+                <h2 class="title">Title</h2>
+                <p class="description">description</p>
+                <h4 class="price">price</h4>
+            </div>
+        </a>  
+    </template>
+    <template class="product-template">
+        <div>
+            <div>
+                <h2 class="title">Title</h2>
+                <p class="description">description</p>
+                <h4 class="price">price</h4>
+            </div>
+            
+            <button class="delete-btn" type="button">Delete</button>
+        </div>    
+        
+    </template>
     
-    <div class="list-container">
-        <div>
+{% endblock %}
 
-        </div>
-        <div>
-          
-        </div>
-    </div>
 
+{% block scripts %}
+<!-- block.super will get the content of the block from the parent template -->
+    {{ block.super }}
+    <script>
+        
+    </script>
+    <script src="{% static 'accounts/js/profile.js' %}"></script>
 {% endblock %}

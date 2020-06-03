@@ -12,9 +12,8 @@ function init() {
 
 function getShoppingOrderProducts() {
   fetch(
-    "http://localhost:8000/eshop/api/v1/order_product?shopping_cart_id" +
-      shoppingCartId +
-      "/",
+    "http://localhost:8000/eshop/api/v1/order_product?shopping_cart_id=" +
+      shoppingCartId,
     {
       credentials: "same-origin",
       headers: {
@@ -51,7 +50,7 @@ function getOrderItemsDetail(data) {
       })
       .then(function (data) {
         console.log("Data is ok", data);
-        showOrderItem(data);
+        showOrderItem(data, item.id);
       })
       .catch(function (ex) {
         console.log("parsing failed", ex);
@@ -59,7 +58,8 @@ function getOrderItemsDetail(data) {
   });
 }
 
-function showOrderItem(data) {
+function showOrderItem(data, id) {
+  console.log(id);
   let clone = document
     .querySelector(".order-item-template")
     .content.cloneNode(true);
@@ -68,7 +68,31 @@ function showOrderItem(data) {
   clone.querySelector(".title").textContent = data.title;
   clone.querySelector(".description").textContent = data.description;
   clone.querySelector(".price").textContent = data.price;
+  const removeButton = clone.querySelector(".remove-btn");
+  removeButton.id = id;
+  removeButton.addEventListener("click", (e) => {
+    console.log(e.target.id);
+    removeFromBasket(e.target.id);
+  });
   orderProductsListContainer.appendChild(clone);
+}
+
+function removeFromBasket(id) {
+  fetch("http://localhost:8000/eshop/api/v1/order_product/" + id + "/", {
+    method: "DELETE",
+    credentials: "same-origin",
+    headers: {
+      "X-CSRFToken": csrftoken,
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then(function (response) {
+      return response;
+    })
+    .catch(function (ex) {
+      console.log("parsing failed", ex);
+    });
 }
 
 init();

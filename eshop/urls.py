@@ -1,8 +1,8 @@
 from django.urls import path, include
 from . import views
-from js_urls.views import JsUrlsView
+
 from .api import ProductList, ProductDetail, OrderProductListInCart, OrderProductDetail, ShoppingCartList, ShoppingCartDetail
-from django.conf.urls import url
+# from django.conf.urls import url
 app_name = 'eshop'
 
 JS_URLS = (
@@ -25,6 +25,6 @@ urlpatterns = [
     path('api/v1/shopping_cart/', ShoppingCartList.as_view()),
     path('api/v1/shopping_cart/<int:pk>/', ShoppingCartDetail.as_view()),
     path('api/v1/rest-auth/', include('rest_auth.urls')),
-    url(r'^js-urls/$', JsUrlsView.as_view(), name='js_urls'),
+
 
 ]

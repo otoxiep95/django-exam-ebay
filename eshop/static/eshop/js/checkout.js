@@ -12,6 +12,8 @@ const shoppingCartId = document.querySelector("input[name='shopping_cart_id']")
   .value;
 const userId = document.querySelector("input[name='user_id']").value;
 console.log(shoppingCartId);
+
+const idArray = [];
 function init() {
   getShoppingOrderProducts();
   toOrderListButton.addEventListener("click", showOrderConfirmationScreen);
@@ -81,6 +83,7 @@ function getOrderItemsDetail(data) {
       })
       .then(function (data) {
         console.log("Data is ok", data);
+        idArray.push(data.id);
         showOrderItem(data);
       })
       .catch(function (ex) {
@@ -120,11 +123,36 @@ function completeShoppingCart() {
     })
     .then(function (data) {
       console.log("Data is ok", data);
+      deleteProducts();
       createNewShoppingCart();
     })
     .catch(function (ex) {
       console.log("parsing failed", ex);
     });
+}
+
+function deleteProducts() {
+  idArray.forEach((id) => {
+    console.log(id);
+    fetch("http://localhost:8000/eshop/api/v1/" + id + "/", {
+      method: "PATCH",
+      credentials: "include",
+      headers: {
+        "X-CSRFToken": csrftoken,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ available: false }),
+    })
+      .then(function (response) {
+        console.log(response);
+        return response.json();
+      })
+      .then(function (data) {})
+      .catch(function (ex) {
+        console.log("parsing failed", ex);
+      });
+  });
 }
 
 function createNewShoppingCart() {

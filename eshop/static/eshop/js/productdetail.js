@@ -47,7 +47,7 @@ function createOrderItem() {
   console.log(id, shoppingCartId);
   fetch("http://localhost:8000/eshop/api/v1/order_product/", {
     method: "POST",
-    credentials: "include",
+    credentials: "same-origin",
     headers: {
       "X-CSRFToken": csrftoken,
       Accept: "application/json",
@@ -60,6 +60,7 @@ function createOrderItem() {
     })
     .then(function (data) {
       console.log("Data is ok", data);
+      window.location.href = "http://localhost:8000/eshop/shopping_cart/";
     })
     .catch(function (ex) {
       console.log("parsing failed", ex);

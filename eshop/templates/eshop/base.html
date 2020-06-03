@@ -9,17 +9,14 @@
         <title>Eshop</title>
     </head>
     <body>
-    
-        <nav>
-        {% if user %}
-            <a href="{% url 'eshop:index' %}"><li>Home Page</li></a>
-            <a><li>My Profile</li></a>
-            <a href="{% url 'eshop:shopping_cart' %}"><li>My Basket</li></a>
-            <a href="{% url 'accounts:logout' %}"><li>Logout</li></a>
-        {% else %}    
-            <a href="{% url 'accounts:login' %}"><li>Login</li></a>
-            <a href="{% url 'accounts:sign_up' %}"><li>Register</li></a>
-        {% endif %}
+
+        <nav class="main-nav">
+            <ul>
+                <a href="{% url 'eshop:index' %}"><li>Home Page</li></a>
+                <a href="{% url 'accounts:user_profile' %}"><li>My Profile</li></a>
+                <a href="{% url 'eshop:shopping_cart' %}"><li>My Basket</li></a>
+                <a href="{% url 'accounts:logout' %}"><li>Logout</li></a>
+            </ul>
         </nav> 
             {% block content %}
             {% endblock %}
